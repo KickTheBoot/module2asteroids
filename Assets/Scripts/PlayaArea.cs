@@ -38,7 +38,8 @@ public class PlayaArea : MonoBehaviour
     {
         byte output = 0x00000000;
 
-        Debug.Log($"{other}, {bounds.xMin}, {bounds.xMax}, {bounds.yMin}, {bounds.yMax},");
+        //Debug.Log($"{other}, {bounds.xMin}, {bounds.xMax}, {bounds.yMin}, {bounds.yMax},");
+        
         //is outside bounds on the right
         if(other.x > bounds.xMax  - bounds.width * 0.5)      output += 0b0001;
         //is outside bounds on the left
