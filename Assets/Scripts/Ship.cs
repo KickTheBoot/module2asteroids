@@ -91,12 +91,14 @@ public class Ship : MonoBehaviour
         IEnumerator Death()
         {
             dead = true;
+            monkey.gameObject.SetActive(false);
             Vector2 newPos;
             newPos.x = PlayaArea.instance.bounds.width;
             newPos.y = PlayaArea.instance.bounds.height;
             transform.position = newPos;
             yield return new WaitForSeconds(5);
             dead = false;
+            monkey.gameObject.SetActive(true);
             newPos.x = 0;
             newPos.y = 0;
             transform.position = newPos;

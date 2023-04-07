@@ -19,7 +19,15 @@ public class bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"Hit {other.name}");
-        if(other.tag != "Ship")Destroy(this.gameObject);
+        Renderer OtherRenderer;
+        if(other.TryGetComponent<Renderer>(out OtherRenderer))
+        {
+            if(OtherRenderer.isVisible)
+            {
+                Debug.Log($"Hit {other.name}");
+                if(other.tag != "Ship")Destroy(this.gameObject);
+            }
+        }
+        
     }
 }

@@ -6,17 +6,24 @@ public class Asteroid : MonoBehaviour
 {
 
     Vector2 Velocity;
+    float AngularVelocity;
 
-    float MaxVelocity = 5;
+    const float MaxVelocity = 5;
+
+    const float MaxAngularVelocity = 10;
     Monkey monkey;
     // Start is called before the first frame update
     void Start()
     {
         monkey = GameObject.Instantiate(Monkey.MonkeyPrefab(),transform.position, transform.rotation).GetComponent<Monkey>();       
         monkey.initialize(this.gameObject);
+        
         Velocity.x = Random.Range(0,MaxVelocity*2) - MaxVelocity;
         Velocity.y = Random.Range(0,MaxVelocity*2) - MaxVelocity;
         Velocity = Vector2.ClampMagnitude(Velocity,MaxVelocity);
+        
+        AngularVelocity = Random.Range(0, MaxAngularVelocity) - MaxAngularVelocity*0.5f;
+        
         Spawner.asteroidCount += 1;
     }
 
@@ -24,6 +31,7 @@ public class Asteroid : MonoBehaviour
     void Update()
     {
         transform.Translate(Time.deltaTime*Velocity);
+        transform.Rotate(new Vector3(0,0,AngularVelocity)*Time.deltaTime,Space.World);
         transform.position = EdgeWrapSystem.screenWrapPosition(transform.position);
     }
 
