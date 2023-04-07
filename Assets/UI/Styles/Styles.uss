@@ -1,0 +1,42 @@
+.unity-text-element {
+    -unity-font: url('project://database/Assets/UI/Fonts/joystix%20monospace.otf?fileID=12800000&guid=9ad84230838c60a4a89705fa2150b792&type=3#joystix monospace');
+    -unity-font-definition: url('project://database/Assets/UI/Fonts/joystix%20monospace%20SDF.asset?fileID=11400000&guid=0a158c775f535ae4aa5e0b80f2029d13&type=2#joystix monospace SDF');
+    font-size: 100%;
+    white-space: nowrap;
+    color: rgb(255, 255, 255);
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: auto;
+    margin-bottom: 1%;
+    -unity-text-align: upper-center;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transform-origin: center;
+    -unity-font-style: normal;
+    scale: 1 1;
+    visibility: visible;
+    translate: 50% 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 1%;
+}
+
+.score {
+    justify-content: center;
+    align-items: center;
+    font-size: 100%;
+    color: rgb(255, 255, 255);
+    -unity-text-align: lower-center;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    -unity-font-definition: url('project://database/Assets/UI/Fonts/joystix%20monospace%20SDF.asset?fileID=11400000&guid=0a158c775f535ae4aa5e0b80f2029d13&type=2#joystix monospace SDF');
+    -unity-font: url('project://database/Assets/UI/Fonts/joystix%20monospace.otf?fileID=12800000&guid=9ad84230838c60a4a89705fa2150b792&type=3#joystix monospace');
+}
