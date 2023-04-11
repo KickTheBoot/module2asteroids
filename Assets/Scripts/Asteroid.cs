@@ -25,6 +25,8 @@ public class Asteroid : MonoBehaviour
         AngularVelocity = Random.Range(0, MaxAngularVelocity) - MaxAngularVelocity*0.5f;
         
         Spawner.asteroidCount += 1;
+
+        GameManager.instance.game.OnGameOver += OnGameOver;
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class Asteroid : MonoBehaviour
 
     void OnDestroy()
     {
+        GameManager.instance.game.OnGameOver -= OnGameOver;
         Spawner.asteroidCount -= 1;
         if(monkey)
         {
@@ -53,6 +56,7 @@ public class Asteroid : MonoBehaviour
 
     void OnHitBullet()
     {
+        GameManager.instance.game.AddScore((int)transform.localScale.magnitude * 10);
         if(transform.localScale.magnitude >= 2)
         {
             GameObject[] HalfAsteroids = {GameObject.Instantiate(this.gameObject, transform.position, transform.rotation),GameObject.Instantiate(this.gameObject, transform.position, transform.rotation)};
@@ -61,6 +65,11 @@ public class Asteroid : MonoBehaviour
                 asteroid.transform.localScale = transform.localScale / 2;
             }
         }
+        Destroy(this.gameObject);
+    }
+
+    public void OnGameOver()
+    {
         Destroy(this.gameObject);
     }
 

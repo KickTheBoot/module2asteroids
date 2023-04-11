@@ -35,7 +35,7 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!dead)
+        if (!dead )
         {
             if (Input.GetButton("Thrust"))
             {
@@ -90,6 +90,8 @@ public class Ship : MonoBehaviour
 
         IEnumerator Death()
         {
+            GameManager.instance.game.Death();
+
             dead = true;
             monkey.gameObject.SetActive(false);
             Vector2 newPos;
@@ -97,6 +99,7 @@ public class Ship : MonoBehaviour
             newPos.y = PlayaArea.instance.bounds.height;
             transform.position = newPos;
             yield return new WaitForSeconds(5);
+            yield return new WaitUntil(()=>!GameManager.instance.game.GameOver);
             dead = false;
             monkey.gameObject.SetActive(true);
             newPos.x = 0;

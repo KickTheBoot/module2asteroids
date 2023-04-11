@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="UnityEngine.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" schemaLocation="UnityEngine.UIElements ../UIElementsSchema/UnityEngine.UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Styles/Styles.uss?fileID=7433441132597879392&amp;guid=11b3f29a525ac7e49967c4f929ce2258&amp;type=3#Styles" />
     <ui:Label text="SCORE:00000000" display-tooltip-when-elided="true" name="Score" class="score" />
+    <ui:Label text="Lives:" display-tooltip-when-elided="true" name="Lives" style="position: absolute; bottom: 5px; right: auto; left: -79px; justify-content: flex-end; width: 163px; align-items: flex-start;" />
 </ui:UXML>

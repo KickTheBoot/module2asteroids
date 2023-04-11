@@ -10,16 +10,17 @@ public class scoreboard : MonoBehaviour
 
     int[] scores;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         if(!Instance)
         Instance = this;
 
         doc = GetComponent<UIDocument>();
+
         
     }
 
-    public void ListScores(int[] scores)
+    public void ListScores(int[] scores, int NewHighScoreIndex)
     {
         VisualElement board = doc.rootVisualElement.Q(name: "ScoreContainer");
 
@@ -28,9 +29,11 @@ public class scoreboard : MonoBehaviour
         for(int i = 0; i < scores.Length; i++)
         {
             TextElement score = new TextElement();
-            score.text = $"{i+1}: {scores[i]}";
+            if(i == NewHighScoreIndex)score.AddToClassList("newHighScore");
+            score.text = $"{i+1}:\t{scores[i]}";
             board.Add(score);
         }
+        Debug.Log("it ran through!");
     }
 
 }
