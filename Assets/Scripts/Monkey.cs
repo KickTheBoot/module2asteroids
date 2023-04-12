@@ -126,7 +126,5 @@ public class Monkey : MonoBehaviour
                 Copiable.SendMessage($"OnHit{other.tag}",SendMessageOptions.DontRequireReceiver);
             }
         }
-
-        
     }
 }
