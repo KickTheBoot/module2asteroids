@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 //A singleton class containing data and methods used by multiple systems between scenes
 [RequireComponent(typeof(HighScoreManager))]
 public class GameManager : MonoBehaviour
 {
+    
+    public InputActionAsset controls;
 
+    InputAction start, quit;
     public static GameManager instance;
 
     public Game game;
@@ -24,7 +28,23 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        instance = this;
+        
+
+        InputActionMap Controls = controls.FindActionMap("Controls");
+
+        start = Controls.FindAction("Start");
+        quit = Controls.FindAction("quit");
+
         game = new Game();
+        
+        
+
+        quit.performed += ctx => {Quit(ctx);};
+
+        start.Enable();
+        quit.Enable();
+
         Debug.Log(game != null);
 
         if(!scoreboard)
@@ -32,22 +52,26 @@ public class GameManager : MonoBehaviour
             scoreboard = FindObjectOfType<ScoreBoard>();
         }
 
-        if (!instance)
-        {
-            instance = this;
+
+        game.OnScoreUpdate += gameUI.UpdateScore;
+        game.OnLivesUpdated += gameUI.UpdateLives;  
+
+        Debug.Log("instance set");
             highScoreManager = GetComponent<HighScoreManager>();
 
             highScoreManager.highscores = highScoreManager.LoadScores();
             game.OnGameOver += GameOver;
 
-        }
-        else Destroy(this);
+       
+
+            
+            scoreboard.gameObject.SetActive(false);
     }
 
-    void Start()
-    {
+
+    public void Start()
+    {          
         game.GameStart();
-        scoreboard.gameObject.SetActive(false);
     }
 
     void GameOver()
@@ -61,10 +85,15 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ReloadSceneUponButtonPress());
     }
 
+    public void Quit(InputAction.CallbackContext context)
+    {
+        Application.Quit();
+    }
+
     IEnumerator ReloadSceneUponButtonPress()
     {
         
-        yield return new WaitUntil(()=>Input.GetButtonDown("Start"));
+        yield return new WaitUntil(() => start.WasPressedThisFrame());
         SceneManager.LoadScene(0,LoadSceneMode.Single);
     }
 }

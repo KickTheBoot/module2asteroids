@@ -14,7 +14,7 @@ public class Game
     public void UpdateLives(int amount)
     {
         Lives = amount;
-        if(OnLivesUpdated != null)OnLivesUpdated.Invoke(Lives);
+        OnLivesUpdated.Invoke(Lives);
     }
 
     public void GameStart()
@@ -32,12 +32,14 @@ public class Game
             GameOver = true;
             Debug.Log("Game Over");
             OnGameOver.Invoke();
+            
         }
         else
         {
             if(OnDeath != null)OnDeath.Invoke();
             UpdateLives(Lives - 1);
             Debug.Log("Dead");
+            Debug.Log($"Lives: {Lives}");
         }
         
 

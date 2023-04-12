@@ -17,6 +17,9 @@ public class Spawner : MonoBehaviour
 
     Ship ship;
 
+    [SerializeField]
+    GameManager manager;
+
     float NextSpawn;
     // Start is called before the first frame update
     void Start()
@@ -28,7 +31,7 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.time >= NextSpawn && asteroidCount < MaxAsteroids && !GameManager.instance.game.GameOver)
+        if(Time.time >= NextSpawn && asteroidCount < MaxAsteroids && manager.game.GameOver == false)
         {
             SpawnAsteroid();
             NextSpawn = Time.time + Random.Range(MinimumInterval, MaximumInterval);
@@ -52,11 +55,6 @@ public class Spawner : MonoBehaviour
 
         GameObject asteroid = Instantiate(Asteroid,position, Quaternion.Euler(0,0,0));
         asteroid.transform.localScale = Vector3.one * scale;
-    }
-
-    void OnGUI()
-    {
-        if(GUILayout.Button("Spawn asteroid")) SpawnAsteroid();
     }
 
 
