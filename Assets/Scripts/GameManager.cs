@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
 
     public HighScoreManager highScoreManager;
 
-    public scoreboard Scoreboard;
+    [SerializeField]
+    ScoreBoard scoreboard;
     public GameUI gameUI;
 
     
@@ -25,6 +26,11 @@ public class GameManager : MonoBehaviour
     {
         game = new Game();
         Debug.Log(game != null);
+
+        if(!scoreboard)
+        {
+            scoreboard = FindObjectOfType<ScoreBoard>();
+        }
 
         if (!instance)
         {
@@ -41,16 +47,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         game.GameStart();
-        Scoreboard.gameObject.SetActive(false);
+        scoreboard.gameObject.SetActive(false);
     }
 
     void GameOver()
     {   
-        Scoreboard.gameObject.SetActive(true);
+        scoreboard.gameObject.SetActive(true);
         gameUI.gameObject.SetActive(false);
         highScoreManager.updateScores(game.score);
         highScoreManager.StoreScores(highScoreManager.highscores);
-        scoreboard.Instance.ListScores(highScoreManager.highscores,highScoreManager.newHighScoreIndex);
+        scoreboard.ListScores(highScoreManager.highscores,highScoreManager.newHighScoreIndex);
 
         StartCoroutine(ReloadSceneUponButtonPress());
     }

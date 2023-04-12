@@ -5,6 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
 {
+    Color spritecolor;
+    
+    [SerializeField]
+    AudioClip DeathNoise;
+
+    SpriteRenderer ShipRenderer;
+
     bool invincible;
     bool dead;
     Monkey monkey;
@@ -26,6 +33,9 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
+        ShipRenderer = GetComponent<SpriteRenderer>();
+        spritecolor = ShipRenderer.color;
+
         body = GetComponent<Rigidbody2D>();
 
         monkey = GameObject.Instantiate(Monkey.MonkeyPrefab(), transform.position, transform.rotation).GetComponent<Monkey>();
@@ -65,6 +75,8 @@ public class Ship : MonoBehaviour
 
             transform.Rotate(new Vector3(0, 0, angularVelocity * Time.deltaTime));
             transform.Translate(velocity * Time.deltaTime, Space.World);
+
+            if(Input.GetButtonDown("Fire") && OnFire != null)OnFire.Invoke();
         }
     }
         void FixedUpdate()
@@ -91,7 +103,7 @@ public class Ship : MonoBehaviour
         IEnumerator Death()
         {
             GameManager.instance.game.Death();
-
+            if(DeathNoise)AudioSource.PlayClipAtPoint(DeathNoise,transform.position);
             dead = true;
             monkey.gameObject.SetActive(false);
             Vector2 newPos;
@@ -111,9 +123,25 @@ public class Ship : MonoBehaviour
         IEnumerator invincibleTime(float time)
         {
             invincible = true;
-            yield return new WaitForSeconds(time);
+
+            float invincibleTime = Time.time + time;
+
+            Color invisible = new Color(0,0,0,0);
+
+            while(Time.time < invincibleTime)
+            {
+                ShipRenderer.color = invisible;
+                yield return null;
+                ShipRenderer.color = spritecolor;
+                yield return null;
+            }
+
+            yield return null;
             invincible = false;
         }
+
+        public delegate void Fire();
+        public event Fire OnFire; 
 
 
     }

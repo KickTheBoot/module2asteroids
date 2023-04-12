@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.46105248, g: 0.45770234, b: 0.4710189, a: 1}
+  m_IndirectSpecularColor: {r: 0.92544234, g: 0.91924137, b: 0.94397944, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highScoreManager: {fileID: 0}
-  Scoreboard: {fileID: 883068069}
+  scoreboard: {fileID: 0}
   gameUI: {fileID: 297038901}
 --- !u!4 &803132988
 Transform:
@@ -442,8 +442,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 883068067}
-  - component: {fileID: 883068069}
   - component: {fileID: 883068068}
+  - component: {fileID: 883068069}
   m_Layer: 0
   m_Name: Scoreboard
   m_TagString: Untagged
@@ -494,6 +494,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793b84d63c17a5f47a49b6ca7b3dcd29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HighScoreContainerName: ScoreContainer
+  NewHighScoreClass: newHighScore
+  doc: {fileID: 883068068}
 --- !u!1 &1083815736
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +590,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 6312920077851299788, guid: c7e1838171108604e882d09bdb5c24fb, type: 3}
+  ship: {fileID: 1502948155}
+  ShootNoise: {fileID: 8300000, guid: d093260b152cad8419c43a8ffeee9b20, type: 3}
 --- !u!1 &1391930775
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,6 +806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df1eff7d17e34244a5685e7b07582ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeathNoise: {fileID: 8300000, guid: 274539dc84d52544a9a0def07384164d, type: 3}
 --- !u!1 &1882215868
 GameObject:
   m_ObjectHideFlags: 0
