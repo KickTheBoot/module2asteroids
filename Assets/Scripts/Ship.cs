@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
 {
+    public InputActionAsset controls;
+
+    private InputAction fire, steer, thrust;
+    
     Color spritecolor;
     
     [SerializeField]
@@ -31,6 +36,19 @@ public class Ship : MonoBehaviour
 
     float angulardeceleration = 20f;
 
+    void Awake()
+    {
+        InputActionMap map = controls.FindActionMap("Controls");
+        thrust = map.FindAction("Thrust");
+        fire = map.FindAction("Fire");
+        steer = map.FindAction("Steer");
+
+        thrust.Enable();
+        fire.Enable();
+        steer.Enable();
+
+    }
+
     void Start()
     {
         ShipRenderer = GetComponent<SpriteRenderer>();
@@ -47,7 +65,9 @@ public class Ship : MonoBehaviour
     {
         if (!dead )
         {
-            if (Input.GetButton("Thrust"))
+
+            Debug.Log(thrust.ReadValue<float>());
+            if (thrust.IsPressed())
             {
                 velocity.x += transform.up.x * ThrustForce * Time.deltaTime;
                 velocity.y += transform.up.y * ThrustForce * Time.deltaTime;
@@ -56,7 +76,7 @@ public class Ship : MonoBehaviour
 
             velocity = Vector2.ClampMagnitude(velocity, maxVelocity);
 
-            angularVelocity += Input.GetAxis("Steer") * AngularAcceleration * Time.deltaTime;
+            angularVelocity += steer.ReadValue<float>() * AngularAcceleration * Time.deltaTime;
 
             bool angvels = angularVelocity >= 0;
 
@@ -76,7 +96,7 @@ public class Ship : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, angularVelocity * Time.deltaTime));
             transform.Translate(velocity * Time.deltaTime, Space.World);
 
-            if(Input.GetButtonDown("Fire") && OnFire != null)OnFire.Invoke();
+            if(fire.WasPerformedThisFrame() && OnFire != null)OnFire.Invoke();
         }
     }
         void FixedUpdate()
