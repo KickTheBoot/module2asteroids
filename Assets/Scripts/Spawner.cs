@@ -40,8 +40,8 @@ public class Spawner : MonoBehaviour
 
     void SpawnAsteroid()
     {
-        float width = PlayaArea.instance.bounds.width;
-        float height = PlayaArea.instance.bounds.height;
+        float width = PlayArea.instance.bounds.width;
+        float height = PlayArea.instance.bounds.height;
 
         float scale = Random.Range(1,5);
         Vector3 position = new Vector3(Random.Range(0,width)-width*0.5f,Random.Range(0,height)- height*0.5f);

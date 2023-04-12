@@ -36,6 +36,9 @@ public class Ship : MonoBehaviour
 
     float angulardeceleration = 20f;
 
+    [SerializeField]
+    ParticleSystem ThrustParticles;
+
     void Awake()
     {
         InputActionMap map = controls.FindActionMap("Controls");
@@ -71,8 +74,13 @@ public class Ship : MonoBehaviour
             {
                 velocity.x += transform.up.x * ThrustForce * Time.deltaTime;
                 velocity.y += transform.up.y * ThrustForce * Time.deltaTime;
+                if(!ThrustParticles.isPlaying)  ThrustParticles.Play();
             }
-            else if (velocity.magnitude != 0) velocity -= velocity.normalized * DecelerationOverTime * Time.deltaTime;
+            else 
+            {
+                if (velocity.magnitude != 0) velocity -= velocity.normalized * DecelerationOverTime * Time.deltaTime;
+                ThrustParticles.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+            }
 
             velocity = Vector2.ClampMagnitude(velocity, maxVelocity);
 
@@ -122,13 +130,16 @@ public class Ship : MonoBehaviour
 
         IEnumerator Death()
         {
+            velocity = Vector2.zero;
+            angularVelocity = 0;
+
             GameManager.instance.game.Death();
             if(DeathNoise)AudioSource.PlayClipAtPoint(DeathNoise,transform.position);
             dead = true;
             monkey.gameObject.SetActive(false);
             Vector2 newPos;
-            newPos.x = PlayaArea.instance.bounds.width;
-            newPos.y = PlayaArea.instance.bounds.height;
+            newPos.x = PlayArea.instance.bounds.width;
+            newPos.y = PlayArea.instance.bounds.height;
             transform.position = newPos;
             yield return new WaitForSeconds(5);
             yield return new WaitUntil(()=>!GameManager.instance.game.GameOver);

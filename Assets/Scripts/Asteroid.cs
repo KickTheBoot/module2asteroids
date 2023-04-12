@@ -7,7 +7,6 @@ public class Asteroid : MonoBehaviour
 
     Vector2 Velocity;
     float AngularVelocity;
-
     const float MaxVelocity = 5;
 
     const float MaxAngularVelocity = 10;
@@ -41,10 +40,8 @@ public class Asteroid : MonoBehaviour
     {
         GameManager.instance.game.OnGameOver -= OnGameOver;
         Spawner.asteroidCount -= 1;
-        if(monkey)
-        {
-            Destroy(monkey.gameObject);
-        }
+        if(monkey)Destroy(monkey.gameObject);
+
 
         
     }

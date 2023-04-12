@@ -15,7 +15,7 @@ public class bullet : MonoBehaviour
     void Update()
     {
         transform.position += transform.up * speed * Time.deltaTime;
-        byte areainfo = PlayaArea.instance.ObjectWithinBoundsInfo(transform.position);
+        byte areainfo = PlayArea.instance.ObjectWithinBoundsInfo(transform.position);
         if(areainfo < 0)Destroy(this.gameObject);
     }
 

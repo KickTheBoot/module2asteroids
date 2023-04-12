@@ -743,6 +743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controls: {fileID: -944628639613478452, guid: e6f9739b02d456f4f825f3379b37fadf, type: 3}
   DeathNoise: {fileID: 8300000, guid: 274539dc84d52544a9a0def07384164d, type: 3}
+  ThrustParticles: {fileID: 1882215871}
 --- !u!1 &1882215868
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +866,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -1807,13 +1808,22 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 1
+          time: 0.7663269
           value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -13.304381
+          outSlope: -13.304381
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.20429733
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2

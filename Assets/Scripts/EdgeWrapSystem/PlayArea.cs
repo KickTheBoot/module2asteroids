@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayaArea : MonoBehaviour
+public class PlayArea : MonoBehaviour
 {
-    public static PlayaArea instance;
+    public static PlayArea instance;
     public Rect bounds;
 
     public float margin = 0.5f;

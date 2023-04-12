@@ -81,8 +81,8 @@ public class Monkey : MonoBehaviour
         Vector2 targetpos2 = Vector2.zero;
         Vector2 targetpos3 = Vector2.zero;
 
-        float width = PlayaArea.instance.bounds.width;
-        float height = PlayaArea.instance.bounds.height;
+        float width = PlayArea.instance.bounds.width;
+        float height = PlayArea.instance.bounds.height;
 
         float xtarget = width * (Copiable.transform.position.x >= 0 ? -1 : 1) + Copiable.transform.position.x;
         targetpos1.x = xtarget;
