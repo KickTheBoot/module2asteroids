@@ -5,35 +5,35 @@ using UnityEngine.UIElements;
 
 public class GameUI : MonoBehaviour
 {   
+
+    GameManager manager;
     [SerializeField]
     string ScoreName, LifeCountName;
+    [SerializeField]
     UIDocument doc;
     
     TextElement ScoreText;
 
     TextElement LifeCount;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         doc = GetComponent<UIDocument>();
 
-        ScoreText = doc.rootVisualElement.Q<TextElement>(ScoreName);
-        LifeCount = doc.rootVisualElement.Q<TextElement>(LifeCountName);
+        ScoreText = doc.rootVisualElement.Q<TextElement>(name:ScoreName);
+        LifeCount = doc.rootVisualElement.Q<TextElement>(name:LifeCountName);
         
-        GameManager.instance.game.OnScoreUpdate += UpdateScore;
-        GameManager.instance.game.OnLivesUpdated += UpdateLives;
-
-        UpdateLives(GameManager.instance.game.Lives);
 
     }
 
     // Update is called once per frame
-    void UpdateScore(int amount)
+    public void UpdateScore(int amount)
     {
+
         ScoreText.text = $"Score:\t{amount}";
     }
 
-    void UpdateLives(int amount)
+    public void UpdateLives(int amount)
     {
         LifeCount.text = $"Lives: {amount}";
     }
