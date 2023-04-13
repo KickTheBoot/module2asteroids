@@ -9,7 +9,7 @@ public class Asteroid : MonoBehaviour
     float AngularVelocity;
     const float MaxVelocity = 5;
 
-    const float MaxAngularVelocity = 10;
+    const float MaxAngularVelocity = 100;
     Monkey monkey;
     // Start is called before the first frame update
     void Start()
