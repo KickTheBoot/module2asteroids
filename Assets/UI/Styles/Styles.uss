@@ -1,41 +1,16 @@
 .unity-text-element {
     -unity-font: url('project://database/Assets/UI/Fonts/joystix%20monospace.otf?fileID=12800000&guid=9ad84230838c60a4a89705fa2150b792&type=3#joystix monospace');
+    color: rgba(255, 255, 255, 255);
     -unity-font-definition: url('project://database/Assets/UI/Fonts/joystix%20monospace%20SDF.asset?fileID=11400000&guid=0a158c775f535ae4aa5e0b80f2029d13&type=2#joystix monospace SDF');
-    font-size: 100%;
-    white-space: nowrap;
-    color: rgb(255, 255, 255);
-    margin-left: 1%;
-    margin-right: 1%;
-    margin-top: 10px;
-    margin-bottom: 1%;
-    -unity-text-align: middle-center;
-    width: 50%;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    transform-origin: center;
-    -unity-font-style: normal;
-    scale: 1 1;
-    visibility: visible;
-    translate: 50% 0;
-    flex-grow: 0;
-    flex-shrink: 0;
-    height: 22px;
-}
-
-#ScoreContainer.unity-text-element {
-    -unity-text-align: upper-left;
-    align-items: flex-start;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+    font-size: 200%;
+    -unity-text-align: upper-center;
 }
 
 .newHighScore {
-    color: rgba(240, 255, 0, 255);
+    color: rgba(236, 255, 0, 255);
+}
+
+.HighScore {
+    width: 20%;
+    -unity-text-align: upper-left;
 }
