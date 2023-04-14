@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        StartCoroutine(CleanUp());
         instance = this;
         
 
@@ -95,5 +96,28 @@ public class GameManager : MonoBehaviour
         
         yield return new WaitUntil(() => start.WasPressedThisFrame());
         SceneManager.LoadScene(0,LoadSceneMode.Single);
+    }
+
+    
+    void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    IEnumerator CleanUp()
+    {
+        while(true)
+        {
+        Asteroid[] Asteroids = FindObjectsOfType<Asteroid>();
+        if(Asteroids != null)
+            for(int i = 0; i < Asteroids.Length; i++)
+            {
+                if(!Asteroids[i].enabled)
+                {
+                    Destroy(Asteroids[i].gameObject);
+                }
+            }
+            yield return new WaitForSeconds(5);
+        }
     }
 }

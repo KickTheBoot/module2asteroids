@@ -32,8 +32,9 @@ public class Asteroid : MonoBehaviour
         monkey = GameObject.Instantiate(Monkey.MonkeyPrefab(),transform.position, transform.rotation).GetComponent<Monkey>();       
         monkey.initialize(this.gameObject);
         
-        Velocity.x = Random.Range(0,MaxVelocity*2) - MaxVelocity;
-        Velocity.y = Random.Range(0,MaxVelocity*2) - MaxVelocity;
+        float SpeedMod = 1/ transform.localScale.magnitude;
+        Velocity.x = (Random.Range(0,MaxVelocity*2) - MaxVelocity)*SpeedMod;
+        Velocity.y = (Random.Range(0,MaxVelocity*2) - MaxVelocity)*SpeedMod;
         Velocity = Vector2.ClampMagnitude(Velocity,MaxVelocity);
         
         AngularVelocity = Random.Range(0, MaxAngularVelocity) - MaxAngularVelocity*0.5f;
@@ -68,7 +69,7 @@ public class Asteroid : MonoBehaviour
 
     void OnHitBullet()
     {
-        GameManager.instance.game.AddScore((int)transform.localScale.magnitude * 10);
+        if(GameManager.instance)GameManager.instance.game.AddScore((int)transform.localScale.magnitude * 10);
         if(ExplosionSound)AudioSource.PlayClipAtPoint(ExplosionSound,transform.position);
         if(transform.localScale.magnitude >= 2)
         {

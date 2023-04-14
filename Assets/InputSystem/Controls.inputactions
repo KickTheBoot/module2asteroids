@@ -75,6 +75,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "ecda9b4a-6357-4810-b332-6ba121bd3625",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Thrust",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Controller",
                     "id": "98dcf698-cf08-46ca-9b2a-acb17a17f682",
                     "path": "1DAxis",
@@ -141,6 +152,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Controller Dpad",
+                    "id": "d2af7125-f697-48c3-b393-88d9479e9c7b",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "640ef221-f680-4068-a46c-a76ecb3474e8",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "6e3ab6de-c51f-42d2-83c0-22f3078b9565",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "0e35f6ad-d824-4ad3-ace8-9d13d5a25829",
                     "path": "<Gamepad>/buttonEast",
@@ -155,6 +199,17 @@
                     "name": "",
                     "id": "64fd5cd4-53a1-4000-a57b-0d4ff9305f2e",
                     "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "996f5631-85c9-4b76-b300-074483aea70e",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

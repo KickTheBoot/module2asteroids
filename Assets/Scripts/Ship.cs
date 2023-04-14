@@ -40,6 +40,13 @@ public class Ship : MonoBehaviour
     float angulardeceleration = 60f;
 
     [SerializeField]
+    float RapidFireEnd;
+    int NextFire;
+
+    const int NormalFireInterval = 30;
+    const int RapidFireInterval = 10;
+
+    [SerializeField]
     ParticleSystem ThrustParticles;
 
     void Awake()
@@ -107,7 +114,15 @@ public class Ship : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, angularVelocity * Time.deltaTime));
             transform.Translate(velocity * Time.deltaTime, Space.World);
 
-            if(fire.WasPerformedThisFrame() && OnFire != null)OnFire.Invoke();
+            //Firing the gun
+            
+
+            bool RapidFire = RapidFireEnd < Time.time;
+            if(NextFire > 0) NextFire--;
+            else if(fire.IsPressed()){
+                NextFire = RapidFire ? NormalFireInterval:RapidFireInterval; 
+                OnFire.Invoke();
+            }
         }
     }
         void FixedUpdate()
@@ -117,7 +132,7 @@ public class Ship : MonoBehaviour
 
         void OnGUI()
         {
-            GUILayout.Label($"Position: {transform.position} \nVelocity: {velocity}\nAngular Velocity: {angularVelocity}");
+            //GUILayout.Label($"Position: {transform.position} \nVelocity: {velocity}\nAngular Velocity: {angularVelocity}");
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -174,6 +189,17 @@ public class Ship : MonoBehaviour
 
             yield return null;
             invincible = false;
+        }
+
+        public void AddRapidFireTime(float Amount)
+        {
+            if(RapidFireEnd < Time.time)RapidFireEnd = Time.time + Amount;
+            else RapidFireEnd += Amount;
+        }
+
+        void OnHitRapidFirePowerUp()
+        {
+            AddRapidFireTime(10);
         }
 
         public delegate void Fire();

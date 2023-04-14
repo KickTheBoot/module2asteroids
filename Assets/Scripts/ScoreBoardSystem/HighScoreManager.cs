@@ -22,8 +22,6 @@ public class HighScoreManager : MonoBehaviour
         highscores = LoadScores();
     }
 
-
-
     //sorts the scores in descending order with insertion sort
     public void sortScores()
     {
@@ -153,5 +151,6 @@ public class HighScoreManager : MonoBehaviour
 
         else return new int[8];
     }
+
 
 }
