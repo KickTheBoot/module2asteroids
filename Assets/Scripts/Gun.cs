@@ -7,6 +7,7 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private GameObject Bullet;
 
+    public float RapidFireEnd;
     [SerializeField]
     private Ship ship;
 
@@ -26,7 +27,7 @@ public class Gun : MonoBehaviour
     }
 
     void Fire()
-    {
+    {   
         if(ShootNoise) AudioSource.PlayClipAtPoint(ShootNoise, transform.position);
         GameObject.Instantiate(Bullet, transform.position, transform.rotation);
     }
