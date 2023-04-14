@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2eef889337540f7428622203e89e5d83
+guid: 3b16295ad36929943a4782738fcd954e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,12 +47,12 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1024
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -102,7 +102,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -114,7 +114,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -129,28 +129,10 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-    physicsShape:
-    - - {x: 355, y: -406}
-      - {x: -6, y: -434}
-      - {x: -78, y: -399}
-      - {x: -185, y: -360}
-      - {x: -169, y: -251}
-      - {x: -231, y: -38}
-      - {x: -408, y: 42}
-      - {x: -463, y: 125}
-      - {x: -429, y: 204}
-      - {x: -347, y: 294}
-      - {x: -144, y: 395}
-      - {x: 59, y: 399}
-      - {x: 256, y: 327}
-      - {x: 363, y: 328}
-      - {x: 438, y: 204}
-      - {x: 425, y: 98}
-      - {x: 455, y: -253}
-      - {x: 417, y: -347}
+    physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []

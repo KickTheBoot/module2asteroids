@@ -1,16 +1,17 @@
 .unity-text-element {
     -unity-font: url('project://database/Assets/UI/Fonts/joystix%20monospace.otf?fileID=12800000&guid=9ad84230838c60a4a89705fa2150b792&type=3#joystix monospace');
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
     -unity-font-definition: url('project://database/Assets/UI/Fonts/joystix%20monospace%20SDF.asset?fileID=11400000&guid=0a158c775f535ae4aa5e0b80f2029d13&type=2#joystix monospace SDF');
     font-size: 200%;
     -unity-text-align: upper-center;
 }
 
 .newHighScore {
-    color: rgba(236, 255, 0, 255);
+    color: rgb(236, 255, 0);
 }
 
 .HighScore {
     width: 20%;
     -unity-text-align: upper-left;
+    white-space: nowrap;
 }

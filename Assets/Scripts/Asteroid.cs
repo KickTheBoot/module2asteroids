@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
+    [SerializeField]
+    SpriteVariantScriptableObject SpriteVariants;
 
     Vector2 Velocity;
     float AngularVelocity;
@@ -14,6 +16,16 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(SpriteVariants)
+        {
+            Sprite sprite = SpriteVariants.RandomSprite();
+            List<Vector2> shapes = new List<Vector2>(sprite.GetPhysicsShapePointCount(0));
+            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            renderer.sprite = sprite;
+            PolygonCollider2D coll = GetComponent<PolygonCollider2D>();
+            sprite.GetPhysicsShape(0,shapes);
+            coll.points = shapes.ToArray();
+        }
         monkey = GameObject.Instantiate(Monkey.MonkeyPrefab(),transform.position, transform.rotation).GetComponent<Monkey>();       
         monkey.initialize(this.gameObject);
         
@@ -31,7 +43,7 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Time.deltaTime*Velocity);
+        transform.Translate(Time.deltaTime*Velocity,Space.World);
         transform.Rotate(new Vector3(0,0,AngularVelocity)*Time.deltaTime,Space.World);
         transform.position = EdgeWrapSystem.screenWrapPosition(transform.position);
     }

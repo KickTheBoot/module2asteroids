@@ -49,8 +49,8 @@ public class Spawner : MonoBehaviour
         float DistanceToShip = Vector3.Distance(ship.transform.position, position);
         if(DistanceToShip < scale + 1)
         {   
-            float addedDistance = scale + 1;
-            position += (position + ship.transform.position) *addedDistance;
+            Vector3 addedDistance = Random.insideUnitCircle.normalized * (scale + 1);
+            position += ship.transform.position + addedDistance;
         }
 
         GameObject asteroid = Instantiate(Asteroid,position, Quaternion.Euler(0,0,0));
