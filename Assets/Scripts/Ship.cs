@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
 {
+    
+    [SerializeField]
+    GameObject explosion;
     public InputActionAsset controls;
 
     private InputAction fire, steer, thrust;
@@ -34,7 +37,7 @@ public class Ship : MonoBehaviour
 
     float MaxAngAcc = 360;
 
-    float angulardeceleration = 20f;
+    float angulardeceleration = 60f;
 
     [SerializeField]
     ParticleSystem ThrustParticles;
@@ -132,6 +135,8 @@ public class Ship : MonoBehaviour
         {
             velocity = Vector2.zero;
             angularVelocity = 0;
+
+            if(explosion)Instantiate(explosion, transform.position, Quaternion.Euler(0,0,0));
 
             GameManager.instance.game.Death();
             if(DeathNoise)AudioSource.PlayClipAtPoint(DeathNoise,transform.position);

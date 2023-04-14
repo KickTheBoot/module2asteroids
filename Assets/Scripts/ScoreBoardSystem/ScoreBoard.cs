@@ -37,6 +37,7 @@ public class ScoreBoard : MonoBehaviour
         for(int i = 0; i < scores.Length; i++)
         {
             TextElement score = new TextElement();
+            score.AddToClassList("HighScore");
             if(i == NewHighScoreIndex)score.AddToClassList(NewHighScoreClass);
             score.text = $"{i+1}:\t{scores[i]}";
             board.Add(score);

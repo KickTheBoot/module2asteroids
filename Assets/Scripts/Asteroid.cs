@@ -4,16 +4,31 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
+    [SerializeField]
+    SpriteVariantScriptableObject SpriteVariants;
+
+    [SerializeField]
+    AudioClip ExplosionSound;
 
     Vector2 Velocity;
     float AngularVelocity;
     const float MaxVelocity = 5;
 
-    const float MaxAngularVelocity = 10;
+    const float MaxAngularVelocity = 100;
     Monkey monkey;
     // Start is called before the first frame update
     void Start()
     {
+        if(SpriteVariants)
+        {
+            Sprite sprite = SpriteVariants.RandomSprite();
+            List<Vector2> shapes = new List<Vector2>(sprite.GetPhysicsShapePointCount(0));
+            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            renderer.sprite = sprite;
+            PolygonCollider2D coll = GetComponent<PolygonCollider2D>();
+            sprite.GetPhysicsShape(0,shapes);
+            coll.points = shapes.ToArray();
+        }
         monkey = GameObject.Instantiate(Monkey.MonkeyPrefab(),transform.position, transform.rotation).GetComponent<Monkey>();       
         monkey.initialize(this.gameObject);
         
@@ -31,7 +46,7 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Time.deltaTime*Velocity);
+        transform.Translate(Time.deltaTime*Velocity,Space.World);
         transform.Rotate(new Vector3(0,0,AngularVelocity)*Time.deltaTime,Space.World);
         transform.position = EdgeWrapSystem.screenWrapPosition(transform.position);
     }
@@ -54,6 +69,7 @@ public class Asteroid : MonoBehaviour
     void OnHitBullet()
     {
         GameManager.instance.game.AddScore((int)transform.localScale.magnitude * 10);
+        if(ExplosionSound)AudioSource.PlayClipAtPoint(ExplosionSound,transform.position);
         if(transform.localScale.magnitude >= 2)
         {
             GameObject[] HalfAsteroids = {GameObject.Instantiate(this.gameObject, transform.position, transform.rotation),GameObject.Instantiate(this.gameObject, transform.position, transform.rotation)};

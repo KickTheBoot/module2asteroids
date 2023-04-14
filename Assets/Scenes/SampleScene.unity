@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.92571867, g: 0.9192423, b: 0.94433117, a: 1}
+  m_IndirectSpecularColor: {r: 0.9188425, g: 0.91883856, b: 0.9187927, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -741,6 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df1eff7d17e34244a5685e7b07582ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 2478095387116129813, guid: ddea855bcaf671844bf2c192ebd1e444, type: 3}
   controls: {fileID: -944628639613478452, guid: e6f9739b02d456f4f825f3379b37fadf, type: 3}
   DeathNoise: {fileID: 8300000, guid: 274539dc84d52544a9a0def07384164d, type: 3}
   ThrustParticles: {fileID: 1882215871}
