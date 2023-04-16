@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : SpaceBody
 {
     [SerializeField]
     SpriteVariantScriptableObject SpriteVariants;
@@ -10,8 +10,9 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     AudioClip ExplosionSound;
 
-    Vector2 Velocity;
-    float AngularVelocity;
+    [SerializeField]
+    GameObject ExplosionParticleSystem;
+
     const float MaxVelocity = 5;
 
     const float MaxAngularVelocity = 100;
@@ -33,11 +34,16 @@ public class Asteroid : MonoBehaviour
         monkey.initialize(this.gameObject);
         
         float SpeedMod = 1/ transform.localScale.magnitude;
-        Velocity.x = (Random.Range(0,MaxVelocity*2) - MaxVelocity)*SpeedMod;
-        Velocity.y = (Random.Range(0,MaxVelocity*2) - MaxVelocity)*SpeedMod;
-        Velocity = Vector2.ClampMagnitude(Velocity,MaxVelocity);
+
+        float RotSpeed = Random.Range(0,AngularTerminalVelocity) - AngularTerminalVelocity*0.5f;
         
-        AngularVelocity = Random.Range(0, MaxAngularVelocity) - MaxAngularVelocity*0.5f;
+        Vector2 speed;
+
+        speed.x = (Random.Range(0,TerminalVelocity*2) - TerminalVelocity)*SpeedMod;
+        speed.y = (Random.Range(0,TerminalVelocity*2) - TerminalVelocity)*SpeedMod;
+        speed = Vector2.ClampMagnitude(speed,TerminalVelocity);
+        
+        AddVelocity(speed,RotSpeed);
         
         Spawner.asteroidCount += 1;
 
@@ -47,8 +53,7 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Time.deltaTime*Velocity,Space.World);
-        transform.Rotate(new Vector3(0,0,AngularVelocity)*Time.deltaTime,Space.World);
+        Move();
         transform.position = EdgeWrapSystem.screenWrapPosition(transform.position);
     }
 
@@ -69,6 +74,11 @@ public class Asteroid : MonoBehaviour
 
     void OnHitBullet()
     {
+        if(ExplosionParticleSystem)
+        {
+            GameObject Explosion = Instantiate(ExplosionParticleSystem, transform.position, Quaternion.Euler(0,0,0));
+            Explosion.transform.localScale = transform.localScale * 0.5f;
+        }
         if(GameManager.instance)GameManager.instance.game.AddScore((int)transform.localScale.magnitude * 10);
         if(ExplosionSound)AudioSource.PlayClipAtPoint(ExplosionSound,transform.position);
         if(transform.localScale.magnitude >= 2)

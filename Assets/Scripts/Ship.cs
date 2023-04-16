@@ -6,9 +6,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : SpaceBody
 {
-    
+    [Header("Ship specific settings")]
     [SerializeField]
-    GameObject explosion;
+    GameObject ExplosionParticleSystem;
     public InputActionAsset controls;
 
     private InputAction fire, steer, thrust;
@@ -32,11 +32,6 @@ public class Ship : SpaceBody
 
     float AngularAcceleration = 200;
 
-    float DecelerationOverTime = 1f;
-
-    float MaxAngAcc = 270;
-
-    float angulardeceleration = 60f;
 
     [SerializeField]
     float RapidFireEnd;
@@ -50,9 +45,6 @@ public class Ship : SpaceBody
 
     void Awake()
     {
-        TerminalVelocity = maxVelocity;
-        AngularTerminalVelocity = MaxAngAcc;
-        Deceleration = DecelerationOverTime;
 
         InputActionMap map = controls.FindActionMap("Controls");
         thrust = map.FindAction("Thrust");
@@ -88,21 +80,14 @@ public class Ship : SpaceBody
             }
             else 
             {
-                if (Velocity.magnitude != 0) Velocity -= Velocity.normalized * DecelerationOverTime * Time.deltaTime;
                 ThrustParticles.Stop(false, ParticleSystemStopBehavior.StopEmitting);
             }
 
             Velocity = Vector2.ClampMagnitude(Velocity, maxVelocity);
 
             Accelerate(transform.up *(thrust.IsPressed() ? 1:0) * ThrustForce, steer.ReadValue<float>() * AngularAcceleration);
-            angularVelocity += steer.ReadValue<float>() * AngularAcceleration * Time.deltaTime;
-
-            bool angvels = angularVelocity >= 0;
-
-
-
-            //Imitating the screen wrap effect
             Move();
+            //Imitating the screen wrap effect
             transform.position = EdgeWrapSystem.screenWrapPosition(transform.position);
             //Firing the gun
             
@@ -138,10 +123,9 @@ public class Ship : SpaceBody
 
         IEnumerator Death()
         {
-            Velocity = Vector2.zero;
-            angularVelocity = 0;
 
-            if(explosion)Instantiate(explosion, transform.position, Quaternion.Euler(0,0,0));
+            ZeroVelocities();
+            if(ExplosionParticleSystem)Instantiate(ExplosionParticleSystem, transform.position, Quaternion.Euler(0,0,0));
 
             GameManager.instance.game.Death();
             if(DeathNoise)AudioSource.PlayClipAtPoint(DeathNoise,transform.position);
