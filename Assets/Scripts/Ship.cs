@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : SpaceBody
-public class Ship : SpaceBody
 {
     [Header("Ship specific settings")]
     [SerializeField]
@@ -171,15 +170,6 @@ public class Ship : SpaceBody
         {
             if(RapidFireEnd < Time.time)RapidFireEnd = Time.time + Amount;
             else RapidFireEnd += Amount;
-        }
-
-        public void PowerUp(PowerUp powerUp)
-        {
-            if(powerUp.GetType() == typeof(RapidFIrePowerUp))
-            {
-                RapidFIrePowerUp Rfpu = (RapidFIrePowerUp)powerUp;
-                AddRapidFireTime(Rfpu.Duration);
-            }
         }
 
         public void PowerUp(PowerUp powerUp)
