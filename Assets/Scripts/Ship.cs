@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Ship : MonoBehaviour
+public class Ship : SpaceBody
 {
     
     [SerializeField]
@@ -26,7 +26,6 @@ public class Ship : MonoBehaviour
     Rigidbody2D body;
 
     float ThrustForce = 5;
-    Vector2 velocity;
     float maxVelocity = 10;
 
     float angularVelocity;
@@ -35,7 +34,7 @@ public class Ship : MonoBehaviour
 
     float DecelerationOverTime = 1f;
 
-    float MaxAngAcc = 360;
+    float MaxAngAcc = 270;
 
     float angulardeceleration = 60f;
 
@@ -51,6 +50,10 @@ public class Ship : MonoBehaviour
 
     void Awake()
     {
+        TerminalVelocity = maxVelocity;
+        AngularTerminalVelocity = MaxAngAcc;
+        Deceleration = DecelerationOverTime;
+
         InputActionMap map = controls.FindActionMap("Controls");
         thrust = map.FindAction("Thrust");
         fire = map.FindAction("Fire");
@@ -79,41 +82,28 @@ public class Ship : MonoBehaviour
         if (!dead )
         {
 
-            Debug.Log(thrust.ReadValue<float>());
             if (thrust.IsPressed())
             {
-                velocity.x += transform.up.x * ThrustForce * Time.deltaTime;
-                velocity.y += transform.up.y * ThrustForce * Time.deltaTime;
                 if(!ThrustParticles.isPlaying)  ThrustParticles.Play();
             }
             else 
             {
-                if (velocity.magnitude != 0) velocity -= velocity.normalized * DecelerationOverTime * Time.deltaTime;
+                if (Velocity.magnitude != 0) Velocity -= Velocity.normalized * DecelerationOverTime * Time.deltaTime;
                 ThrustParticles.Stop(false, ParticleSystemStopBehavior.StopEmitting);
             }
 
-            velocity = Vector2.ClampMagnitude(velocity, maxVelocity);
+            Velocity = Vector2.ClampMagnitude(Velocity, maxVelocity);
 
+            Accelerate(transform.up *(thrust.IsPressed() ? 1:0) * ThrustForce, steer.ReadValue<float>() * AngularAcceleration);
             angularVelocity += steer.ReadValue<float>() * AngularAcceleration * Time.deltaTime;
 
             bool angvels = angularVelocity >= 0;
 
-            if (angularVelocity != 0 && Input.GetAxis("Steer") == 0)
-            {
-                if (Mathf.Abs(angularVelocity) < angulardeceleration * Time.deltaTime) angularVelocity = 0;
-                else angularVelocity += angulardeceleration * Time.deltaTime * (angvels ? -1 : 1);
-            }
 
-
-            angularVelocity = Mathf.Clamp(angularVelocity, MaxAngAcc * -1, MaxAngAcc);
 
             //Imitating the screen wrap effect
-
+            Move();
             transform.position = EdgeWrapSystem.screenWrapPosition(transform.position);
-
-            transform.Rotate(new Vector3(0, 0, angularVelocity * Time.deltaTime));
-            transform.Translate(velocity * Time.deltaTime, Space.World);
-
             //Firing the gun
             
 
@@ -148,7 +138,7 @@ public class Ship : MonoBehaviour
 
         IEnumerator Death()
         {
-            velocity = Vector2.zero;
+            Velocity = Vector2.zero;
             angularVelocity = 0;
 
             if(explosion)Instantiate(explosion, transform.position, Quaternion.Euler(0,0,0));
@@ -195,6 +185,15 @@ public class Ship : MonoBehaviour
         {
             if(RapidFireEnd < Time.time)RapidFireEnd = Time.time + Amount;
             else RapidFireEnd += Amount;
+        }
+
+        public void PowerUp(PowerUp powerUp)
+        {
+            if(powerUp.GetType() == typeof(RapidFIrePowerUp))
+            {
+                RapidFIrePowerUp Rfpu = (RapidFIrePowerUp)powerUp;
+                AddRapidFireTime(Rfpu.Duration);
+            }
         }
 
         void OnHitRapidFirePowerUp()
