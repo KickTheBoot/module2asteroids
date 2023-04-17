@@ -35,10 +35,10 @@ public class Ship : SpaceBody
 
     [SerializeField]
     float RapidFireEnd;
-    int NextFire;
+    float NextFire;
 
-    const int NormalFireInterval = 30;
-    const int RapidFireInterval = 10;
+    const float NormalFireInterval = 0.25f;
+    const float RapidFireInterval = 0.10f;
 
     [SerializeField]
     ParticleSystem ThrustParticles;
@@ -94,9 +94,9 @@ public class Ship : SpaceBody
             
 
             bool RapidFire = RapidFireEnd < Time.time;
-            if(NextFire > 0) NextFire--;
-            else if(fire.IsPressed()){
-                NextFire = RapidFire ? NormalFireInterval:RapidFireInterval; 
+            if(Time.time >= NextFire && fire.IsPressed())
+            {
+                NextFire = Time.time + (RapidFire ? NormalFireInterval:RapidFireInterval); 
                 OnFire.Invoke();
             }
         }
