@@ -140,8 +140,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 651efe05ba24ec54baf7cb2c3ca0cec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TerminalVelocity: 5
+  Deceleration: 0
+  AngularTerminalVelocity: 100
+  AngularDeceleration: 0
   SpriteVariants: {fileID: 11400000, guid: 64de2f7c584708a468ba41ef685ece38, type: 2}
   ExplosionSound: {fileID: 8300000, guid: 0ad8fc16e991061498bf330aaf71d6f6, type: 3}
+  ExplosionParticleSystem: {fileID: 2478095387116129813, guid: 6add50b5be608134f925bc3c3de42058, type: 3}
 --- !u!50 &7816602539619735258
 Rigidbody2D:
   serializedVersion: 4

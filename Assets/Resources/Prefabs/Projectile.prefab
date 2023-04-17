@@ -99,6 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8264c8655a2e5f4f91972d9a2b224d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TerminalVelocity: 200
+  Deceleration: 0
+  AngularTerminalVelocity: 0
+  AngularDeceleration: 0
+  speed: 10
 --- !u!61 &-7493867381990918975
 BoxCollider2D:
   m_ObjectHideFlags: 0
