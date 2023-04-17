@@ -86,6 +86,28 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "fb01807f-71a0-49a9-b49d-dc66adc2473b",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Thrust",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a2fe11d-c011-4a8b-8981-84c23b34a0ca",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Thrust",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Controller",
                     "id": "98dcf698-cf08-46ca-9b2a-acb17a17f682",
                     "path": "1DAxis",
